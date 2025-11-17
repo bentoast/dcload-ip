@@ -660,7 +660,6 @@ static int rtl_bb_rx()
 	/* While we have frames left to process... */
 	while (!(nic8[RT_CHIPCMD] & 1))
 	{
-
 		/* Get frame size and status */
 		// Don't need the % there for nowrap since it happens later.
 		ring_offset = rtl.cur_rx;
@@ -800,11 +799,10 @@ void rtl_bb_loop(int is_main_loop)
 	{
 		PMCR_Read(DCLOAD_PMCR, loop_start);
 	}
-
+	
 	// OMG this is polling the network adapter. Well, ok then.
 	while(!escape_loop)
 	{
-
 		/* Check interrupt status */
 		if (nic16[RT_INTRSTATUS/2] != intr)
 		{
