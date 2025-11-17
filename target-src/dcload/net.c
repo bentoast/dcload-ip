@@ -1,6 +1,5 @@
 #include <string.h>
 #include "commands.h"
-#include "dcload.h"
 #include "packet.h"
 #include "adapter.h"
 #include "scif.h"
