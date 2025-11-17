@@ -25,6 +25,9 @@ static void process_broadcast(unsigned char *pkt) // arp request
 	ether_header_t *ether_header = (ether_header_t *)pkt;
 	arp_header_t *arp_header = (arp_header_t *)(pkt + ETHER_H_LEN);
 
+	if (ether_header->type[1] == 0x00)
+		process_mine(pkt);
+
 	if (ether_header->type[1] != 0x06) /* ARP */
 		return;
 
@@ -150,7 +153,6 @@ static void process_udp(ether_header_t *ether, ip_header_t *ip, udp_header_t *ud
 		/*    scif_puts("UDP CHECKSUM BAD\n"); */
 		return;
 	}
-
 	// Handle receipt of DHCP packets that are directed to this system
 	dhcp_pkt_t *udp_pkt_data = (dhcp_pkt_t*)udp->data;
 	if(__builtin_expect(udp_pkt_data->op == DHCP_OP_BOOTREPLY, 0)) // DHCP ACK or DHCP OFFER
