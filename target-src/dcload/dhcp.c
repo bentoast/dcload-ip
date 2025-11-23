@@ -27,7 +27,7 @@
 #include "dhcp.h"
 #include "perfctr.h"
 #include "memfuncs.h"
-#include "dcload.h"
+#include "settings.h"
 
 // Need to uniquely identify renewal in build_send_dhcp_packet(),
 // so for internal purposes use an invalid DHCP type for that.

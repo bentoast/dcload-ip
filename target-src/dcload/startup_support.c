@@ -6,7 +6,7 @@
 //
 // --Moopthehedgehog
 
-#include "dcload.h"
+#include "display.h"
 #include <stdint.h>
 
 // dcload-crt0.s needs this to set FPSCR since GCC deprecated __set_fpscr and

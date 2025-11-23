@@ -17,6 +17,11 @@
 // Receive buffer size
 #define RX_PKT_BUF_SIZE 1514
 
+#define LAN_MODEL 0300
+#define BBA_MODEL 0400
+
+#define ONSCREEN_DHCP_LEASE_TIME_REFRESH_INTERVAL 1
+
 // Defines a "network adapter". There will be one of these for each of the
 // available drivers.
 typedef struct {
@@ -56,6 +61,8 @@ extern adapter_t * bb;
 extern adapter_t adapter_la;
 extern adapter_t adapter_bba;
 
+extern volatile unsigned int installed_adapter;
+
 // Set this variable to non-zero if you want the loop to exit.
 extern volatile unsigned char escape_loop;
 // If you want the loop to have a timeout, set this int to # of secs.
@@ -66,6 +73,9 @@ extern int loop_secs_elapsed;
 // All adapter drivers should use this shared buffer to receive.
 extern __attribute__((aligned(32))) unsigned char raw_current_pkt[RAW_RX_PKT_BUF_SIZE];
 extern __attribute__((aligned(2))) unsigned char * current_pkt;
+
+// Exported for bb->loop
+void set_ip_dhcp(void);
 
 /*
 // This is useful code to use the perf counters to time stuff (cycle count)

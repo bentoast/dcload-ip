@@ -9,6 +9,8 @@
 #include "adapter.h"
 #include "rtl8139.h"
 #include "dcload.h"
+#include "display.h"
+#include "settings.h"
 
 #include "dhcp.h"
 #include "memfuncs.h"
@@ -788,7 +790,7 @@ void rtl_bb_loop(int is_main_loop)
 	{
 		if(!(booted || running))
 		{
-			disp_info();
+			disp_info(adapter_bba.name, mac_string, our_ip);
 		}
 
 		// Need to wait for a link change before it's OK to do anything
@@ -901,7 +903,7 @@ void rtl_bb_loop(int is_main_loop)
 			{
 				if(dhcp_attempts > 1) // Don't show a counter yet if it's the first attempt
 				{
-					disp_dhcp_attempts_count();
+					disp_dhcp_attempts_count(dhcp_attempts);
 					disp_dhcp_next_attempt(timeout_loop - loop_secs_elapsed + 1);
 				}
 				if(loop_secs_elapsed > (unsigned int) timeout_loop)

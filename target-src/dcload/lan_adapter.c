@@ -9,8 +9,9 @@
 #include "net.h"
 #include "adapter.h"
 #include "lan_adapter.h"
-#include "dcload.h" // clear_lines is in here
+#include "display.h" // clear_lines is in here
 #include "video.h" // for draw_string
+#include "settings.h"
 
 #include "dhcp.h"
 #include "memfuncs.h"
@@ -610,7 +611,7 @@ void la_bb_loop(int is_main_loop)
 	{
 		if(!(booted || running))
 		{
-			disp_info();
+			disp_info(adapter_la.name, mac_string, our_ip);
 		}
 		// This adapter does not support autonegotiation, so this delay ensures that
 		// the other end of the link (which probably does support it) has time to
@@ -724,7 +725,7 @@ void la_bb_loop(int is_main_loop)
 			{
 				if(dhcp_attempts > 1) // Don't show a counter yet if it's the first attempt
 				{
-					disp_dhcp_attempts_count();
+					disp_dhcp_attempts_count(dhcp_attempts);
 					disp_dhcp_next_attempt(timeout_loop - loop_secs_elapsed + 1);
 				}
 				if(loop_secs_elapsed > (unsigned int) timeout_loop)

@@ -8,10 +8,12 @@
 #include "syscalls.h"
 #include "cdfs.h"
 #include "dcload.h"
+#include "display.h"
 #include "go.h"
 #include "disable.h"
 #include "scif.h"
 #include "maple.h"
+#include "settings.h"
 
 #include "perfctr.h"
 #include "memfuncs.h"
@@ -78,7 +80,7 @@ void cmd_execute(ether_header_t * ether, ip_header_t * ip, udp_header_t * udp, c
 		bb->tx(pkt_buf, ETHER_H_LEN + IP_H_LEN + UDP_H_LEN + COMMAND_LEN);
 
 		if (!booted)
-			disp_info();
+			disp_info(bb->name, mac_string, our_ip);
 		else
 			disp_status("executing...");
 
@@ -168,7 +170,7 @@ void cmd_loadbin(ip_header_t * ip, udp_header_t * udp, command_t * command)
 
 	if (!running) {
 		if (!booted)
-			disp_info();
+			disp_info(bb->name, mac_string, our_ip);
 		disp_status("receiving data...");
 	}
 }
@@ -251,7 +253,7 @@ void cmd_donebin(ip_header_t * ip, udp_header_t * udp, command_t * command)
 
 	if (!running) {
 		if (!booted)
-			disp_info();
+			disp_info(bb->name, mac_string, our_ip);
 		disp_status("idle...");
 	}
 }
@@ -326,7 +328,7 @@ void cmd_sendbin(ip_header_t * ip, udp_header_t * udp, command_t * command)
 {
 	if (!running) {
 		if (!booted)
-			disp_info();
+			disp_info(bb->name, mac_string, our_ip);
 		disp_status("sending data...");
 	}
 
