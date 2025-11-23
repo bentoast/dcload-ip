@@ -20,8 +20,6 @@
 #define LAN_MODEL 0300
 #define BBA_MODEL 0400
 
-#define ONSCREEN_DHCP_LEASE_TIME_REFRESH_INTERVAL 1
-
 // Defines a "network adapter". There will be one of these for each of the
 // available drivers.
 typedef struct {
